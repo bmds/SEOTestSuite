@@ -57,6 +57,52 @@ describe('5. Images', () => {
 // 8. social links - Undesireable / not possible to test
 
 // 9. Opengraph tags
+describe('9. Social meta tags', () => {
+	let metaTags;
+
+	beforeAll(async (done) => {
+		metaTags = await chromyInstance.evaluate(SEO.socialMeta);
+		done();
+	});
+
+	test('should have a twitter card tag', () => {
+		expect(metaTags).toHaveProperty('twitter:card');
+	});
+
+	test('should have a sensible value in the twitter card tag', () => {
+		expect(metaTags['twitter:card']).toMatch(/^(summary|summary_large_image|app)$/);
+	});
+
+	test('should have a twitter site tag', () => {
+		expect(metaTags).toHaveProperty('twitter:site');
+	});
+
+	test('should have a user name in the twitter site tag', () => {
+		expect(metaTags['twitter:site']).toMatch(/^@.*$/);
+	});
+
+	test('should have a twitter title tag', () => {
+		expect(metaTags).toHaveProperty('twitter:title');
+	});
+
+	test('should have a twitter description tag', () => {
+		expect(metaTags).toHaveProperty('twitter:description');
+	});
+
+	test('should have a twitter image tag', () => {
+		expect(metaTags).toHaveProperty('twitter:image');
+	});
+
+	test('should have valid url in the twitter image tag', () => {
+		let passed = true;
+		try {
+			new URL(metaTags['twitter:image']);
+		} catch(e) {
+			passed = false;
+		}
+		expect(passed).toBeTruthy();
+	});
+});
 
 // 10. Robots.txt - will need a new describe block & second chromy instance or a navigation event
 
