@@ -3,6 +3,17 @@ const SEO = require('../index');
 
 let chromyInstance;
 
+function isUrl(theUrl) {
+	let passed = true;
+	try {
+		new URL(theUrl);
+	} catch(e) {
+		passed = false;
+	}
+
+	return passed;
+}
+
 beforeAll(() => {
 	chromyInstance = new Chromy();
 	return chromyInstance.goto('https://www.codecomputerlove.com');
@@ -94,13 +105,31 @@ describe('9. Social meta tags', () => {
 	});
 
 	test('should have valid url in the twitter image tag', () => {
-		let passed = true;
-		try {
-			new URL(metaTags['twitter:image']);
-		} catch(e) {
-			passed = false;
-		}
-		expect(passed).toBeTruthy();
+		expect(isUrl(metaTags['twitter:image'])).toBeTruthy();
+	});
+
+	test('should have an og title tag', () => {
+		expect(metaTags).toHaveProperty('og:title');
+	});
+
+	test('should have an og description tag', () => {
+		expect(metaTags).toHaveProperty('og:description');
+	});
+
+	test('should have an og url tag', () => {
+		expect(metaTags).toHaveProperty('og:url');
+	});
+
+	test('should have valid url in the og url tag', () => {
+		expect(isUrl(metaTags['og:url'])).toBeTruthy();
+	});
+
+	test('should have an og image tag', () => {
+		expect(metaTags).toHaveProperty('og:image');
+	});
+
+	test('should have valid url in the og image tag', () => {
+		expect(isUrl(metaTags['og:image'])).toBeTruthy();
 	});
 });
 
