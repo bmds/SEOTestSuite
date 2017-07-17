@@ -108,6 +108,28 @@ describe('9. Social meta tags', () => {
 		expect(isUrl(metaTags['twitter:image'])).toBeTruthy();
 	});
 
+	test('should have an og type tag', () => {
+		expect(metaTags).toHaveProperty('og:type');
+	});
+
+	test('should have a sensible value in the og type tag', () => {
+		const ogTypes = [
+			'music.song',
+			'music.album',
+			'music.playlist',
+			'music.radio_station',
+			'video.movie',
+			'video.episode',
+			'video.tv_show',
+			'video.other',
+			'article',
+			'book',
+			'profile',
+			'website'
+		];
+		expect(ogTypes.find(element => element === metaTags['og:type'])).toBeDefined();
+	});
+
 	test('should have an og title tag', () => {
 		expect(metaTags).toHaveProperty('og:title');
 	});
