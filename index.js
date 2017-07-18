@@ -21,12 +21,13 @@ const seo = {
 		let meta = {};
 
 		Array.from(document.getElementsByTagName('meta')).forEach(tag => {
-			if(tag.name && (tag.name.startsWith('twitter') === false) && (tag.attributes.property.value.startsWith('og') === false)) {
+			if(tag.name && tag.name.startsWith('twitter') === false) {
 				meta[tag.name] = tag.content;
 			}
 		});
 
 		return meta;
+
 	}
 };
 
