@@ -40,7 +40,26 @@ describe('1. Page title', () => {
 	});
 });
 
-// 2. Meta description exists
+describe('2. Meta Description', () => {
+	let metaTags;
+
+	beforeAll(async (done) => {
+		metaTags = await chromyInstance.evaluate(SEO.meta);
+		done();
+	});
+
+	test('is present on the page', () => {
+		expect(metaTags).toHaveProperty('description');
+	});
+
+	test('should have a value', () => {
+		expect(metaTags.description.length).toBeGreaterThan(0);
+	});
+
+	test('should be no more than 160 characters', () => {
+		expect(metaTags.description.length).toBeLessThan(161);
+	});
+});
 
 describe('3. Google analytics', () => {
 	test('is present on the page', async () => {
@@ -71,43 +90,43 @@ describe('5. Images', () => {
 
 // 9. Opengraph tags
 describe('9. Social meta tags', () => {
-	let metaTags;
+	let socialMetaTags;
 
 	beforeAll(async (done) => {
-		metaTags = await chromyInstance.evaluate(SEO.socialMeta);
+		socialMetaTags = await chromyInstance.evaluate(SEO.socialMeta);
 		done();
 	});
 
 	test('should have a twitter card tag', () => {
-		expect(metaTags).toHaveProperty('twitter:card');
+		expect(socialMetaTags).toHaveProperty('twitter:card');
 	});
 
 	test('should have a sensible value in the twitter card tag', () => {
-		expect(metaTags['twitter:card']).toMatch(/^(summary|summary_large_image|app)$/);
+		expect(socialMetaTags['twitter:card']).toMatch(/^(summary|summary_large_image|app)$/);
 	});
 
 	test('should have a twitter site tag', () => {
-		expect(metaTags).toHaveProperty('twitter:site');
+		expect(socialMetaTags).toHaveProperty('twitter:site');
 	});
 
 	test('should have a user name in the twitter site tag', () => {
-		expect(metaTags['twitter:site']).toMatch(/^@.*$/);
+		expect(socialMetaTags['twitter:site']).toMatch(/^@.*$/);
 	});
 
 	test('should have a twitter title tag', () => {
-		expect(metaTags).toHaveProperty('twitter:title');
+		expect(socialMetaTags).toHaveProperty('twitter:title');
 	});
 
 	test('should have a twitter description tag', () => {
-		expect(metaTags).toHaveProperty('twitter:description');
+		expect(socialMetaTags).toHaveProperty('twitter:description');
 	});
 
 	test('should have a twitter image tag', () => {
-		expect(metaTags).toHaveProperty('twitter:image');
+		expect(socialMetaTags).toHaveProperty('twitter:image');
 	});
 
 	test('should have valid url in the twitter image tag', () => {
-		expect(isUrl(metaTags['twitter:image'])).toBeTruthy();
+		expect(isUrl(socialMetaTags['twitter:image'])).toBeTruthy();
 	});
 
 	test('should have an og type tag', () => {
@@ -133,27 +152,27 @@ describe('9. Social meta tags', () => {
 	});
 
 	test('should have an og title tag', () => {
-		expect(metaTags).toHaveProperty('og:title');
+		expect(socialMetaTags).toHaveProperty('og:title');
 	});
 
 	test('should have an og description tag', () => {
-		expect(metaTags).toHaveProperty('og:description');
+		expect(socialMetaTags).toHaveProperty('og:description');
 	});
 
 	test('should have an og url tag', () => {
-		expect(metaTags).toHaveProperty('og:url');
+		expect(socialMetaTags).toHaveProperty('og:url');
 	});
 
 	test('should have valid url in the og url tag', () => {
-		expect(isUrl(metaTags['og:url'])).toBeTruthy();
+		expect(isUrl(socialMetaTags['og:url'])).toBeTruthy();
 	});
 
 	test('should have an og image tag', () => {
-		expect(metaTags).toHaveProperty('og:image');
+		expect(socialMetaTags).toHaveProperty('og:image');
 	});
 
 	test('should have valid url in the og image tag', () => {
-		expect(isUrl(metaTags['og:image'])).toBeTruthy();
+		expect(isUrl(socialMetaTags['og:image'])).toBeTruthy();
 	});
 });
 
