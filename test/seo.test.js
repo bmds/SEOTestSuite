@@ -1,6 +1,8 @@
 const Chromy = require('chromy');
 const SEO = require('../index');
 
+const testURL = 'https://www.codecomputerlove.com';
+
 let chromyInstance;
 
 function isUrl(theUrl) {
@@ -16,7 +18,7 @@ function isUrl(theUrl) {
 
 beforeAll(() => {
 	chromyInstance = new Chromy();
-	return chromyInstance.goto('https://www.codecomputerlove.com');
+	return chromyInstance.goto(testURL);
 });
 
 afterAll(() => chromyInstance.close());
