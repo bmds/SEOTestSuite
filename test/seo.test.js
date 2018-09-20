@@ -130,7 +130,7 @@ describe('Homepage tests', () => {
 		});
 
 		test('should have an og type tag', () => {
-			expect(metaTags).toHaveProperty('og:type');
+			expect(socialMetaTags).toHaveProperty('og:type');
 		});
 
 		test('should have a sensible value in the og type tag', () => {
@@ -148,7 +148,7 @@ describe('Homepage tests', () => {
 				'profile',
 				'website'
 			];
-			expect(ogTypes.find(element => element === metaTags['og:type'])).toBeDefined();
+			expect(ogTypes.find(element => element === socialMetaTags['og:type'])).toBeDefined();
 		});
 
 		test('should have an og title tag', () => {
