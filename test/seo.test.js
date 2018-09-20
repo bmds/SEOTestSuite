@@ -1,7 +1,7 @@
 const Chromy = require('chromy');
 const SEO = require('../index');
 
-const testURL = process.env.SITE && isUrl(process.env.SITE) ? process.env.SITE : 'https://www.example.com.com';
+const testURL = process.env.SITE && isUrl(process.env.SITE) ? process.env.SITE : 'https://www.example.com';
 
 function isUrl(theUrl) {
 	let passed = true;
